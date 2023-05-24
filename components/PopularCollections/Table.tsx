@@ -1,6 +1,21 @@
 "use client";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import InputRadio from "../InputRadio";
+import Link from "next/link";
+
+const TableCell = ({
+  href,
+  children,
+}: {
+  href: string;
+  children: ReactNode;
+}) => {
+  return (
+    <td>
+      <Link href={href}>{children}</Link>
+    </td>
+  );
+};
 
 export default function Table({
   defaultCollections,
@@ -57,11 +72,19 @@ export default function Table({
         <tbody>
           {/* @ts-ignore */}
           {collections?.map((collection, i) => (
-            <tr key={collection.slug}>
-              <td>{i + 1}</td>
-              <td>{collection.name}</td>
-              <td>{collection.floorAsk?.price?.amount?.native}</td>
-              <td>{collection.volume?.["1Day"]}</td>
+            <tr key={collection.id}>
+              <TableCell href={`/collection/${collection.id}`}>
+                {i + 1}
+              </TableCell>
+              <TableCell href={`/collection/${collection.id}`}>
+                {collection.name}
+              </TableCell>
+              <TableCell href={`/collection/${collection.id}`}>
+                {collection.floorAsk?.price?.amount?.native}
+              </TableCell>
+              <TableCell href={`/collection/${collection.id}`}>
+                {collection.volume?.["1Day"]}
+              </TableCell>
             </tr>
           ))}
         </tbody>
