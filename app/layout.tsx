@@ -1,10 +1,10 @@
 import Header from "@/components/Header";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { IBM_Plex_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import Wagmi from "@/context/Wagmi";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = IBM_Plex_Mono({ subsets: ["latin"], weight: ["500"] });
 
 export const metadata = {
   title: "Create Next App",

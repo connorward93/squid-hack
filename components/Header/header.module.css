@@ -1,6 +1,11 @@
 .container {
   position: sticky;
   top: 0;
-  background-color: #fff;
   display: flex;
+  justify-content: space-between;
+  margin: 0.5rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid var(--grey-10);
+  border-radius: 0.25rem;
+  font-size: 14px;
 }
