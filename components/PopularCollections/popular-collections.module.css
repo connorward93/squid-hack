@@ -1,0 +1,14 @@
+.table {
+  width: 100%;
+  text-align: left;
+}
+
+.table thead th {
+  color: var(--grey-10);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.table tbody td {
+  padding: 0.5rem 0;
+}

@@ -4,7 +4,7 @@ import { IBM_Plex_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import Wagmi from "@/context/Wagmi";
 
-const inter = IBM_Plex_Mono({ subsets: ["latin"], weight: ["500"] });
+const inter = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata = {
   title: "Create Next App",

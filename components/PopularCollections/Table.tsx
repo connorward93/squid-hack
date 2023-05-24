@@ -2,6 +2,8 @@
 import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import InputRadio from "../InputRadio";
 import Link from "next/link";
+import Image from "next/image";
+import classes from "./popular-collections.module.css";
 
 const TableCell = ({
   href,
@@ -46,7 +48,7 @@ export default function Table({
   return (
     <>
       <div>
-        <div>PopularCollections</div>
+        <div>Popular Collections</div>
         <div>
           <InputRadio
             items={[
@@ -60,7 +62,7 @@ export default function Table({
           />
         </div>
       </div>
-      <table>
+      <table className={classes.table}>
         <thead>
           <tr>
             <th>#</th>
@@ -77,13 +79,16 @@ export default function Table({
                 {i + 1}
               </TableCell>
               <TableCell href={`/collection/${collection.id}`}>
-                {collection.name}
+                <div className={classes.collection}>
+                  {/* <Image /> */}
+                  <span>{collection.name}</span>
+                </div>
               </TableCell>
               <TableCell href={`/collection/${collection.id}`}>
                 {collection.floorAsk?.price?.amount?.native}
               </TableCell>
               <TableCell href={`/collection/${collection.id}`}>
-                {collection.volume?.["1Day"]}
+                {collection.volume?.["1day"]}
               </TableCell>
             </tr>
           ))}
