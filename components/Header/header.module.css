@@ -8,4 +8,20 @@
   border: 1px solid var(--grey-10);
   border-radius: 0.25rem;
   font-size: 14px;
+  letter-spacing: 0.08em;
+}
+
+.button {
+  display: inline-block;
+  border: none;
+  margin: 0;
+  text-decoration: none;
+  background: transparent;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }

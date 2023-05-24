@@ -1,7 +1,7 @@
 "use client";
-
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
+import classes from "./header.module.css";
 
 export default function Profile() {
   const { address, isConnected } = useAccount();
@@ -13,9 +13,13 @@ export default function Profile() {
   if (isConnected)
     return (
       <div>
-        Connected to {address}
-        <button onClick={() => disconnect()}>Disconnect</button>
+        Connected to {address?.slice(0, 8)}
+        {/* <button onClick={() => disconnect()}>Disconnect</button> */}
       </div>
     );
-  return <button onClick={() => connect()}>Connect Wallet</button>;
+  return (
+    <button className={classes.button} onClick={() => connect()}>
+      Connect Wallet
+    </button>
+  );
 }
