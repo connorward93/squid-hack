@@ -1,0 +1,21 @@
+.label input {
+  display: none;
+}
+
+.label {
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--grey-20);
+}
+
+.label:first-child {
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.label:last-child {
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+.label--selected {
+  border: 1px solid #fff;
+}
