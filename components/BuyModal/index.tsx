@@ -4,17 +4,29 @@ import BuyContext from "@/context/Buy";
 import classes from "./buy-modal.module.css";
 
 export default function BuyModal() {
-  const { state, dispatch } = useContext(BuyContext);
+  const {
+    state: { show, item },
+    dispatch,
+  } = useContext(BuyContext);
 
-  if (!state.show) return null;
+  if (!show) return null;
 
+  console.log(item);
   return (
     <>
       <div
         className={classes.shim}
         onClick={() => dispatch({ type: "reset" })}
       />
-      <div className={classes.modal}>BuyModal</div>
+      <div className={classes.modal}>
+        <div>Buy {item.token.name}</div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={item.token.image} alt={item.token.name} />
+        <div>
+          Price: {item.market.floorAsk.price.amount.native}{" "}
+          {item.market.floorAsk.price.currency.symbol}
+        </div>
+      </div>
     </>
   );
 }
