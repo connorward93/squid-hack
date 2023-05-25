@@ -47,7 +47,7 @@ export default function Table({
 
   return (
     <>
-      <div>
+      <div className={classes.header}>
         <div>Popular Collections</div>
         <div>
           <InputRadio

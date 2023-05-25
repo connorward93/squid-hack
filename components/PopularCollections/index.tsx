@@ -4,9 +4,9 @@ import classes from "./popular-collections.module.css";
 
 export default async function PopularCollections() {
   const collections = await fetchCollections();
-  console.log(collections);
+
   return (
-    <div>
+    <div className={classes.container}>
       <Table defaultCollections={collections} />
     </div>
   );

@@ -1,3 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 0.5rem;
+  gap: 1.5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .table {
   width: 100%;
   text-align: left;
