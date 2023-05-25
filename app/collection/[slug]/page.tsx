@@ -1,23 +1,16 @@
+import CollectionGrid from "@/components/CollectionGrid";
 import { fetchTokens } from "@/lib/fetchTokens";
 import { notFound } from "next/navigation";
+import classes from "./page.module.css";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const tokens = await fetchTokens({ collection: params.slug });
   if (!tokens) notFound();
 
-  console.log(tokens[0].market);
   return (
-    <div>
+    <div className={classes.container}>
       <div>Collection</div>
-      <ul>
-        {tokens.map(({ token, market }) => (
-          <li key={token?.tokenId}>
-            <img src={token?.image} width="100" />
-            {token?.name} - {market?.floorAsk?.price?.amount?.native}{" "}
-            {market?.floorAsk?.price?.currency?.symbol}
-          </li>
-        ))}
-      </ul>
+      <CollectionGrid items={tokens} />
     </div>
   );
 }
