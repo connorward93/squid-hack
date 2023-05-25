@@ -19,8 +19,21 @@
   color: var(--grey-10);
   font-size: 14px;
   font-weight: 400;
+  padding-bottom: 0.5rem;
 }
 
 .table tbody td {
   padding: 0.5rem 0;
+}
+
+.collection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.collection .image img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
 }

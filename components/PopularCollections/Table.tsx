@@ -34,6 +34,21 @@ export default function Table({
     setFilter(e.target.value);
   };
 
+  const renderVolume = (collection: any) => {
+    switch (filter) {
+      case "1Day":
+        return Math.round(collection.volume["1day"]);
+      case "7Day":
+        return Math.round(collection.volume["7day"]);
+      case "30Day":
+        return Math.round(collection.volume["30day"]);
+      case "allTime":
+        return Math.round(collection.volume.allTime);
+      default:
+        return "";
+    }
+  };
+
   useEffect(() => {
     const fetchCollections = async () => {
       const request = await fetch(`api/collections?filter=${filter}`, {
@@ -44,6 +59,8 @@ export default function Table({
     };
     fetchCollections();
   }, [filter]);
+
+  console.log(collections);
 
   return (
     <>
@@ -73,25 +90,31 @@ export default function Table({
         </thead>
         <tbody>
           {/* @ts-ignore */}
-          {collections?.map((collection, i) => (
-            <tr key={collection.id}>
-              <TableCell href={`/collection/${collection.id}`}>
-                {i + 1}
-              </TableCell>
-              <TableCell href={`/collection/${collection.id}`}>
-                <div className={classes.collection}>
-                  {/* <Image /> */}
-                  <span>{collection.name}</span>
-                </div>
-              </TableCell>
-              <TableCell href={`/collection/${collection.id}`}>
-                {collection.floorAsk?.price?.amount?.native}
-              </TableCell>
-              <TableCell href={`/collection/${collection.id}`}>
-                {collection.volume?.["1day"]}
-              </TableCell>
-            </tr>
-          ))}
+          {collections?.map((collection, i) => {
+            const currency = collection.floorAsk.price.currency.symbol;
+            return (
+              <tr key={collection.id}>
+                <TableCell href={`/collection/${collection.id}`}>
+                  {i + 1}
+                </TableCell>
+                <TableCell href={`/collection/${collection.id}`}>
+                  <div className={classes.collection}>
+                    <div className={classes.image}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={collection.image} alt={collection.name} />
+                    </div>
+                    <span>{collection.name}</span>
+                  </div>
+                </TableCell>
+                <TableCell href={`/collection/${collection.id}`}>
+                  {collection.floorAsk?.price?.amount?.native} {currency}
+                </TableCell>
+                <TableCell href={`/collection/${collection.id}`}>
+                  {renderVolume(collection)} {currency}
+                </TableCell>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </>
