@@ -1,6 +1,7 @@
 .container {
   position: sticky;
-  top: 0;
+  z-index: 10;
+  top: 0.5rem;
   display: flex;
   justify-content: space-between;
   margin: 0.5rem;
@@ -9,6 +10,7 @@
   border-radius: 0.25rem;
   font-size: 14px;
   letter-spacing: 0.08em;
+  background-color: var(--black);
 }
 
 .button {
@@ -22,6 +24,5 @@
   color: inherit;
   cursor: pointer;
   text-align: center;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+  appearance: none;
 }
