@@ -4,6 +4,7 @@ import { IBM_Plex_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import Wagmi from "@/context/Wagmi";
 import { BuyProvider } from "@/context/Buy";
+import BuyModal from "@/components/Buy";
 
 const inter = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <html lang="en">
           <body className={inter.className}>
             <Header />
+            <BuyModal />
             {children}
             <Footer />
           </body>

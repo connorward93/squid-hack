@@ -1,11 +1,16 @@
 "use client";
 import { createContext, Dispatch, useReducer } from "react";
 
-type TState = {};
+type TState = {
+  show: boolean;
+  item?: any;
+};
 
-type TAction = { type: string; payload: any };
+type TAction = { type: "set-token-buy"; payload: any };
 
-const initialState: TState = {};
+const initialState: TState = {
+  show: false,
+};
 
 const BuyContext = createContext<{
   state: TState;
@@ -17,6 +22,8 @@ const BuyContext = createContext<{
 
 const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
+    case "set-token-buy":
+      return { ...state, show: true, item: action.payload };
     default:
       return state;
   }
