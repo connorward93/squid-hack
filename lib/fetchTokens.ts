@@ -7,7 +7,7 @@ export const fetchTokens = async (options: { collection: string | null }) => {
   //   Default to ethereum
   const chain = chains[0];
   const response = await fetch(
-    `${chain.reservoirBaseUrl}/tokens/v6?collection=${options.collection}`,
+    `${chain.reservoirBaseUrl}/tokens/v6?collection=${options.collection}&sortBy=floorAskPrice`,
     {
       headers: {
         "x-api-key": chain.apiKey || "",
