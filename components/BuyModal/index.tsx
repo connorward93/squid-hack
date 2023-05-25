@@ -10,7 +10,10 @@ export default function BuyModal() {
 
   return (
     <>
-      <div className={classes.shim} />
+      <div
+        className={classes.shim}
+        onClick={() => dispatch({ type: "reset" })}
+      />
       <div className={classes.modal}>BuyModal</div>
     </>
   );

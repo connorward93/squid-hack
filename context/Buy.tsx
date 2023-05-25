@@ -6,7 +6,7 @@ type TState = {
   item?: any;
 };
 
-type TAction = { type: "set-token-buy"; payload: any };
+type TAction = { type: "reset" } | { type: "set-token-buy"; payload: any };
 
 const initialState: TState = {
   show: false,
@@ -22,6 +22,8 @@ const BuyContext = createContext<{
 
 const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
+    case "reset":
+      return { show: false };
     case "set-token-buy":
       return { ...state, show: true, item: action.payload };
     default:

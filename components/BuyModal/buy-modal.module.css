@@ -14,7 +14,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100px;
-  height: 100px;
-  background-color: #fff;
+  width: 600px;
+  height: 600px;
+  border: 1px solid var(--grey-20);
+  border-radius: 0.25rem;
+  padding: 0.75rem;
+  background-color: var(--black);
 }

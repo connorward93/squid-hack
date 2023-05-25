@@ -4,7 +4,7 @@ import { IBM_Plex_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import Wagmi from "@/context/Wagmi";
 import { BuyProvider } from "@/context/Buy";
-import BuyModal from "@/components/Buy";
+import BuyModal from "@/components/BuyModal";
 
 const inter = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"] });
 
