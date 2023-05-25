@@ -1,3 +1,4 @@
+"use client";
 import { createContext, Dispatch, useReducer } from "react";
 
 type TState = {};
