@@ -1,6 +1,7 @@
 "use client";
 import { useContext } from "react";
 import BuyContext from "@/context/Buy";
+import Buy from "./Buy";
 import classes from "./buy-modal.module.css";
 
 export default function BuyModal() {
@@ -11,7 +12,6 @@ export default function BuyModal() {
 
   if (!show) return null;
 
-  console.log(item);
   return (
     <>
       <div
@@ -25,6 +25,9 @@ export default function BuyModal() {
         <div>
           Price: {item.market.floorAsk.price.amount.native}{" "}
           {item.market.floorAsk.price.currency.symbol}
+        </div>
+        <div>
+          <Buy />
         </div>
       </div>
     </>
