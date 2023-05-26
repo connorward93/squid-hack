@@ -8,7 +8,8 @@ export const fetchCollections = async (options?: {
   filter?: string | null;
 }) => {
   //   Default to ethereum
-  const chain = chains[0];
+  const chain = chains[4];
+
   const response = await fetch(
     `${chain.reservoirBaseUrl}/collections/v5?sortBy=${
       options?.filter || "1Day"

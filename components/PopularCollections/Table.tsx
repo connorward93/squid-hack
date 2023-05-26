@@ -91,7 +91,7 @@ export default function Table({
         <tbody>
           {/* @ts-ignore */}
           {collections?.map((collection, i) => {
-            const currency = collection.floorAsk.price.currency.symbol;
+            const currency = collection?.floorAsk?.price?.currency?.symbol;
             return (
               <tr key={collection.id}>
                 <TableCell href={`/collection/${collection.id}`}>

@@ -5,7 +5,7 @@ type TokenSchema = paths["/tokens/v5"]["get"]["responses"]["200"]["schema"];
 
 export const fetchTokens = async (options: { collection: string | null }) => {
   //   Default to ethereum
-  const chain = chains[0];
+  const chain = chains[4];
   const response = await fetch(
     `${chain.reservoirBaseUrl}/tokens/v6?collection=${options.collection}&sortBy=floorAskPrice`,
     {
