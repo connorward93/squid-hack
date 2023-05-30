@@ -1,7 +1,9 @@
 "use client";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import BuyContext from "@/context/Buy";
-import Buy from "./Buy";
+import { useAccount } from "wagmi";
+import ConnectView from "./ConnectView";
+import BuyView from "./BuyView";
 import classes from "./buy-modal.module.css";
 
 export default function BuyModal() {
@@ -9,6 +11,12 @@ export default function BuyModal() {
     state: { show, item },
     dispatch,
   } = useContext(BuyContext);
+  const { isConnected } = useAccount();
+
+  const renderModal = useCallback(() => {
+    if (!isConnected) return <ConnectView />;
+    else return <BuyView data={item} />;
+  }, [isConnected, item]);
 
   if (!show) return null;
 
@@ -18,18 +26,7 @@ export default function BuyModal() {
         className={classes.shim}
         onClick={() => dispatch({ type: "reset" })}
       />
-      <div className={classes.modal}>
-        <div>Buy {item.token.name}</div>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={item.token.image} alt={item.token.name} />
-        <div>
-          Price: {item.market.floorAsk.price.amount.native}{" "}
-          {item.market.floorAsk.price.currency.symbol}
-        </div>
-        <div>
-          <Buy />
-        </div>
-      </div>
+      <div className={classes.modal}>{renderModal()}</div>
     </>
   );
 }
