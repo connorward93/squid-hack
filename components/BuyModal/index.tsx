@@ -3,20 +3,27 @@ import { useCallback, useContext } from "react";
 import BuyContext from "@/context/Buy";
 import { useAccount } from "wagmi";
 import ConnectView from "./ConnectView";
-import BuyView from "./BuyView";
+import CurrencyView from "./CurrencyView";
+import BuyView from "./ProductView";
 import classes from "./buy-modal.module.css";
 
 export default function BuyModal() {
   const {
-    state: { show, item },
+    state: { view, show, item },
     dispatch,
   } = useContext(BuyContext);
   const { isConnected } = useAccount();
 
   const renderModal = useCallback(() => {
-    if (!isConnected) return <ConnectView />;
-    else return <BuyView data={item} />;
-  }, [isConnected, item]);
+    switch (view) {
+      case "connect":
+        return <ConnectView />;
+      case "product":
+        return <BuyView data={item} />;
+      case "currency":
+        return <CurrencyView />;
+    }
+  }, [item, view]);
 
   if (!show) return null;
 

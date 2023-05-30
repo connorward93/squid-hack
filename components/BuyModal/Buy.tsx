@@ -16,18 +16,17 @@ export default function Buy({ token }: any) {
 
     if (!address) return;
 
-    write({ args: [owner, address, token.token.tokenId] });
+    // write({ args: [owner, address, token.token.tokenId] });
 
     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    // init the SDK
-    // await squid.init();
-    // console.log("Squid inited");
-    // // log Squid supported tokens and chains
-    // console.log("squid.tokens: \n", squid.tokens);
-    // console.log("squid.chains: \n", squid.chains);
-    // // set the token and chain you are looking for
+
+    await squid.init();
+
+    console.log("squid.tokens: \n", squid.tokens);
+    console.log("squid.chains: \n", squid.chains);
+
     // // chainNames are here: https://docs.axelar.dev/dev/build/chain-names
     // const searchTokenSymbol = "WETH";
     // const searchChainName = "Ethereum-2";

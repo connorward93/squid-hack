@@ -4,9 +4,14 @@ import { createContext, Dispatch, useReducer } from "react";
 type TState = {
   show: boolean;
   item?: any;
+  view?: "connect" | "product" | "currency";
 };
 
-type TAction = { type: "reset" } | { type: "set-token-buy"; payload: any };
+type TAction =
+  | { type: "set-view-connect" }
+  | { type: "set-view-currency" }
+  | { type: "reset" }
+  | { type: "set-token-buy"; payload: any };
 
 const initialState: TState = {
   show: false,
@@ -22,10 +27,14 @@ const BuyContext = createContext<{
 
 const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
+    case "set-view-connect":
+      return { ...state, view: "connect" };
+    case "set-view-currency":
+      return { ...state, view: "currency" };
     case "reset":
       return { show: false };
     case "set-token-buy":
-      return { ...state, show: true, item: action.payload };
+      return { ...state, show: true, item: action.payload, view: "product" };
     default:
       return state;
   }

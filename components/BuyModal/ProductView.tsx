@@ -1,8 +1,10 @@
 "use client";
-import Buy from "./Buy";
+import BuyContext from "@/context/Buy";
+import { useContext } from "react";
 import { useFeeData } from "wagmi";
 
 export default function BuyView({ data }: any) {
+  const { dispatch } = useContext(BuyContext);
   const { data: feeData, isError, isLoading } = useFeeData();
   const currency = data.market.floorAsk.price.currency.symbol;
 
@@ -24,22 +26,11 @@ export default function BuyView({ data }: any) {
       <div>
         Price: {data.market.floorAsk.price.amount.native} {currency}
       </div>
-      {/* <div>
-        <Fee />
-      </div>
-      <div>
-        Total:{" "}
-        {feeData?.formatted.gasPrice
-          ? parseInt(data.market.floorAsk.price.amount.native) +
-            parseInt(feeData?.formatted.gasPrice)
-          : null}{" "}
-        {currency}
-      </div> */}
 
       <br />
-      <div>
-        <Buy token={data} />
-      </div>
+      <button onClick={() => dispatch({ type: "set-view-connect" })}>
+        Buy token
+      </button>
     </>
   );
 }
