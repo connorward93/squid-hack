@@ -28,3 +28,7 @@
 .label--selected {
   border: 1px solid #fff;
 }
+
+.label:hover {
+  border: 1px solid #fff;
+}

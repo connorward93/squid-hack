@@ -47,6 +47,7 @@ export default function Table({
 }: {
   defaultCollections: any;
 }) {
+  const [chain, setChain] = useState("homestead");
   const [collections, setCollections] = useState(defaultCollections);
   const [filter, setFilter] = useState<"1Day" | "7Day" | "30Day" | "allTime">(
     "1Day"
@@ -55,6 +56,11 @@ export default function Table({
   const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
     setFilter(e.target.value);
+  };
+
+  const handleChain = (e: ChangeEvent<HTMLInputElement>) => {
+    // @ts-ignore
+    setChain(e.target.value);
   };
 
   const renderVolume = (collection: any) => {
@@ -74,16 +80,17 @@ export default function Table({
 
   useEffect(() => {
     const fetchCollections = async () => {
-      const request = await fetch(`api/collections?filter=${filter}`, {
-        method: "GET",
-      });
+      const request = await fetch(
+        `api/collections?filter=${filter}&chain=${chain}`,
+        {
+          method: "GET",
+        }
+      );
       const { collections } = await request.json();
       setCollections(collections);
     };
     fetchCollections();
-  }, [filter]);
-
-  console.log(collections);
+  }, [filter, chain]);
 
   return (
     <>
@@ -102,11 +109,11 @@ export default function Table({
           />
           <InputRadio
             items={chains.map((chain) => ({
-              value: chain.name,
+              value: chain.routePrefix,
               label: renderIcon(chain.network),
             }))}
-            isChecked={() => false}
-            onChange={() => {}}
+            isChecked={(value: string) => chain === value}
+            onChange={handleChain}
           />
         </div>
       </div>
