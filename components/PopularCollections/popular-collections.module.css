@@ -8,6 +8,7 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .table {
@@ -20,6 +21,15 @@
   font-size: 14px;
   font-weight: 400;
   padding-bottom: 0.5rem;
+}
+
+.table thead th:nth-child(1) {
+  width: 2rem;
+}
+
+.table thead th:nth-child(3),
+.table thead th:nth-child(4) {
+  width: 8rem;
 }
 
 .table tbody td {
