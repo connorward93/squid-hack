@@ -3,7 +3,30 @@ import { ChangeEvent, ReactNode, useEffect, useState } from "react";
 import InputRadio from "../InputRadio";
 import Link from "next/link";
 import Image from "next/image";
+import chains from "@/constants/chains";
 import classes from "./popular-collections.module.css";
+import ETH from "../Icons/ETH";
+import Polygon from "../Icons/Polygon";
+import Arbitrum from "../Icons/Arbitrum";
+import Optimism from "../Icons/Optimism";
+import Goerli from "../Icons/Goerli";
+
+const renderIcon = (network: string) => {
+  switch (network) {
+    case "homestead":
+      return <ETH />;
+    case "matic":
+      return <Polygon />;
+    case "arbitrum":
+      return <Arbitrum />;
+    case "optimism":
+      return <Optimism />;
+    case "goerli":
+      return <Goerli />;
+    default:
+      return network;
+  }
+};
 
 const TableCell = ({
   href,
@@ -66,7 +89,7 @@ export default function Table({
     <>
       <div className={classes.header}>
         <div>Popular Collections</div>
-        <div>
+        <div className={classes.actions}>
           <InputRadio
             items={[
               { value: "1Day", label: "1d" },
@@ -76,6 +99,14 @@ export default function Table({
             ]}
             isChecked={(value: string) => filter === value}
             onChange={handleFilter}
+          />
+          <InputRadio
+            items={chains.map((chain) => ({
+              value: chain.name,
+              label: renderIcon(chain.network),
+            }))}
+            isChecked={() => false}
+            onChange={() => {}}
           />
         </div>
       </div>

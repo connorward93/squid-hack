@@ -37,3 +37,8 @@
   height: 4rem;
   object-fit: cover;
 }
+
+.actions {
+  display: flex;
+  gap: 1rem;
+}
