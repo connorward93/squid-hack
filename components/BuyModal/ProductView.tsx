@@ -5,6 +5,7 @@ import { useFeeData } from "wagmi";
 import Modal from "./Modal";
 import Button from "../Button";
 import classes from "./buy-modal.module.css";
+import Product from "./Product";
 
 export default function BuyView({ data }: any) {
   const { dispatch } = useContext(BuyContext);
@@ -21,32 +22,9 @@ export default function BuyView({ data }: any) {
     );
   };
 
-  console.log(data);
-
   return (
     <Modal heading={"Complete checkout"}>
-      <div className={classes.product}>
-        <div className={classes.image}>
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={data.token.image} alt={data.token.name} />
-        </div>
-        <div className={classes.details}>
-          <div>
-            <div>#{data.token.tokenId}</div>
-            <div className={classes.collection}>
-              {data.token.collection.name}
-            </div>
-          </div>
-          <div className={classes.price}>
-            <div>
-              {data.market.floorAsk.price.amount.native} {currency}
-            </div>
-            <div className={classes.fiat}>
-              US${Math.round(data.market.floorAsk.price.amount.usd * 100) / 100}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Product data={data} />
 
       <br />
       <div className={classes.actions}>
