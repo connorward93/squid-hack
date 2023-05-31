@@ -69,3 +69,20 @@
   max-width: 100%;
   margin-bottom: 1em;
 }
+
+.select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.select .network {
+  flex-grow: 1;
+}
+
+.currency {
+  border-top: 1px solid var(--grey-20);
+  margin-top: 1rem;
+  padding-top: 1rem;
+}
