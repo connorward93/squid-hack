@@ -8,10 +8,10 @@ type TState = {
 };
 
 type TAction =
-  | { type: "set-view-connect" }
+  | { type: "set-view-connect"; payload?: any }
   | { type: "set-view-currency" }
   | { type: "reset" }
-  | { type: "set-token-buy"; payload: any };
+  | { type: "set-view-product"; payload?: any };
 
 const initialState: TState = {
   show: false,
@@ -28,13 +28,15 @@ const BuyContext = createContext<{
 const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
     case "set-view-connect":
-      return { ...state, view: "connect" };
+      return { ...state, show: true, item: action.payload, view: "connect" };
     case "set-view-currency":
       return { ...state, view: "currency" };
     case "reset":
       return { show: false };
-    case "set-token-buy":
-      return { ...state, show: true, item: action.payload, view: "product" };
+    case "set-view-product":
+      if (action.payload)
+        return { ...state, show: true, item: action.payload, view: "product" };
+      else return { ...state, view: "product" };
     default:
       return state;
   }

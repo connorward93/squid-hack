@@ -2,8 +2,10 @@
 import { useContext } from "react";
 import classes from "./collection-grid.module.css";
 import BuyContext from "@/context/Buy";
+import { useAccount } from "wagmi";
 
 export default function CollectionGrid({ items }: any) {
+  const { isConnected } = useAccount();
   const { dispatch } = useContext(BuyContext);
 
   return (
@@ -12,9 +14,18 @@ export default function CollectionGrid({ items }: any) {
         <div
           key={token?.tokenId}
           className={classes.item}
-          onClick={() =>
-            dispatch({ type: "set-token-buy", payload: { token, market } })
-          }
+          onClick={() => {
+            if (isConnected)
+              dispatch({
+                type: "set-view-product",
+                payload: { token, market },
+              });
+            else
+              dispatch({
+                type: "set-view-connect",
+                payload: { token, market },
+              });
+          }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={token?.image} alt={token?.name} />
