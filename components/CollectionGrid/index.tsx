@@ -36,6 +36,7 @@ export default function CollectionGrid({ items }: any) {
               {market?.floorAsk?.price?.currency?.symbol}
             </div>
           </div>
+          <div className={classes.actions}>Buy now</div>
         </div>
       ))}
     </div>
