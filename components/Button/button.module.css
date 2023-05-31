@@ -1,0 +1,25 @@
+.button {
+  display: inline-block;
+  border: none;
+  margin: 0;
+  text-decoration: none;
+  background: transparent;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: inherit;
+  cursor: pointer;
+  text-align: center;
+  appearance: none;
+  border-radius: 0.25rem;
+  width: 100%;
+  padding: 0.625rem 1rem;
+  border: 1px solid transparent;
+}
+
+.button--primary {
+  border: 1px solid var(--white);
+}
+
+.button--squid {
+  background-color: #ab94eb;
+}
