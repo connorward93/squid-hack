@@ -1,0 +1,13 @@
+.menu {
+  background-color: var(--black);
+}
+
+.option,
+.control {
+  padding: 0.25rem 0.75rem;
+}
+
+.control {
+  border: 1px solid var(--white);
+  border-radius: 0.25rem;
+}
