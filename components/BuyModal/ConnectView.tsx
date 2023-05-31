@@ -11,7 +11,10 @@ export default function ConnectView() {
     connector: new InjectedConnector(),
   });
 
-  if (isConnected) return null;
+  if (isConnected) {
+    dispatch({ type: "set-view-currency" });
+    return null;
+  }
 
   return (
     <>
