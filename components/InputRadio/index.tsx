@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from "react";
+import { ChangeEventHandler, ReactNode } from "react";
 import clsx from "clsx";
 import classes from "./input-radio.module.css";
 
@@ -7,12 +7,12 @@ export default function InputRadio({
   isChecked,
   onChange,
 }: {
-  items: { value: string; label: string }[];
+  items: { value: string; label: string | ReactNode }[];
   isChecked: Function;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) {
   return (
-    <div>
+    <div className={classes.container}>
       {items.map(({ value, label }) => (
         <label
           key={`radio-input--${value}`}
@@ -23,7 +23,7 @@ export default function InputRadio({
         >
           <input
             type="radio"
-            name={label}
+            name={value}
             id={value}
             value={value}
             checked={isChecked(value)}

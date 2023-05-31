@@ -1,3 +1,7 @@
+.container {
+  display: flex;
+}
+
 .label input {
   display: none;
 }
@@ -6,6 +10,11 @@
   cursor: pointer;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--grey-20);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.75rem;
+  width: 2.75rem;
 }
 
 .label:first-child {
