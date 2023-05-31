@@ -32,11 +32,18 @@ export default function BuyView({ data }: any) {
         </div>
         <div className={classes.details}>
           <div>
-            <div>{data.token.name || data.token.tokenId}</div>
-            <div>{data.token.collection.name}</div>
+            <div>#{data.token.tokenId}</div>
+            <div className={classes.collection}>
+              {data.token.collection.name}
+            </div>
           </div>
           <div className={classes.price}>
-            {data.market.floorAsk.price.amount.native} {currency}
+            <div>
+              {data.market.floorAsk.price.amount.native} {currency}
+            </div>
+            <div className={classes.fiat}>
+              US${Math.round(data.market.floorAsk.price.amount.usd * 100) / 100}
+            </div>
           </div>
         </div>
       </div>
@@ -47,7 +54,12 @@ export default function BuyView({ data }: any) {
           label="Buy now"
           onClick={() => dispatch({ type: "set-view-connect" })}
         />
-        <Button variant="squid" onClick={() => {}} />
+        <Button
+          variant="squid"
+          onClick={() => {
+            dispatch({ type: "set-view-currency" });
+          }}
+        />
       </div>
     </Modal>
   );
