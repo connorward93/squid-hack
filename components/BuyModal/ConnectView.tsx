@@ -1,6 +1,6 @@
 import { useAccount, useConnect, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import BuyContext from "@/context/Buy";
 import Modal from "./Modal";
 import Button from "../Button";
@@ -8,15 +8,14 @@ import classes from "./buy-modal.module.css";
 
 export default function ConnectView() {
   const { dispatch } = useContext(BuyContext);
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const { connect } = useConnect({
     connector: new InjectedConnector(),
   });
 
-  if (isConnected) {
-    dispatch({ type: "set-view-product" });
-    return null;
-  }
+  useEffect(() => {
+    if (isConnected) dispatch({ type: "set-view-product" });
+  }, [dispatch, isConnected]);
 
   return (
     <Modal heading="Connect wallet">
