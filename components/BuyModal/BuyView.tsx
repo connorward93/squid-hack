@@ -1,20 +1,38 @@
 "use client";
-import Buy from "./Buy";
+import { useContext } from "react";
+import BuyContext from "@/context/Buy";
+import { erc721ABI } from "@wagmi/core";
+import { useAccount, useContractWrite } from "wagmi";
 import { useFeeData } from "wagmi";
 
 export default function BuyView({ data }: any) {
-  const { data: feeData, isError, isLoading } = useFeeData();
+  const {
+    state: { item: token },
+  } = useContext(BuyContext);
+  const { data: feeData, isError } = useFeeData();
   const currency = data.market.floorAsk.price.currency.symbol;
 
-  const Fee = () => {
-    if (isLoading) return <div>Fetching fee data…</div>;
-    if (isError) return <div>Error fetching fee data</div>;
-    return (
-      <div>
-        Fee: {feeData?.formatted.gasPrice} {currency}
-      </div>
-    );
-  };
+  const {
+    data: contractData,
+    isSuccess,
+    write,
+  } = useContractWrite({
+    address: token.token.contract,
+    abi: erc721ABI,
+    functionName: "safeTransferFrom",
+  });
+
+  // const Fee = () => {
+  //   // if (isLoading) return <div>Fetching fee data…</div>;
+  //   // if (isError) return <div>Error fetching fee data</div>;
+  //   return (
+  //     <div>
+  //       Fee: {feeData?.formatted.gasPrice} {currency}
+  //     </div>
+  //   );
+  // };
+
+  // const buy = () => write({ args: [owner, address, token.token.tokenId] });
 
   return (
     <>
@@ -37,9 +55,7 @@ export default function BuyView({ data }: any) {
       </div> */}
 
       <br />
-      <div>
-        <Buy token={data} />
-      </div>
+      <div></div>
     </>
   );
 }
