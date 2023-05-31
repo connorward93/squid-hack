@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <header className={classes.container}>
       <div>
-        <Link href="/">Logo</Link>
+        <Link href="/">QUID</Link>
       </div>
       <div>Search</div>
       <Profile />

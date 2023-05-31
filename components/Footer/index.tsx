@@ -5,7 +5,7 @@ export default function Footer() {
     <footer className={classes.container}>
       <div>
         <a href="https://github.com/connorward93/squid-hack">
-          Github repository↗
+          Github Repository↗
         </a>
       </div>
     </footer>
