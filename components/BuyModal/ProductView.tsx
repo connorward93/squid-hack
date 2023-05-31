@@ -2,6 +2,9 @@
 import BuyContext from "@/context/Buy";
 import { useContext } from "react";
 import { useFeeData } from "wagmi";
+import Modal from "./Modal";
+import Button from "../Button";
+import classes from "./buy-modal.module.css";
 
 export default function BuyView({ data }: any) {
   const { dispatch } = useContext(BuyContext);
@@ -18,19 +21,34 @@ export default function BuyView({ data }: any) {
     );
   };
 
+  console.log(data);
+
   return (
-    <>
-      <div>Buy {data.token.name || data.token.tokenId}</div>
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={data.token.image} alt={data.token.name} />
-      <div>
-        Price: {data.market.floorAsk.price.amount.native} {currency}
+    <Modal heading={"Complete checkout"}>
+      <div className={classes.product}>
+        <div className={classes.image}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={data.token.image} alt={data.token.name} />
+        </div>
+        <div className={classes.details}>
+          <div>
+            <div>{data.token.name || data.token.tokenId}</div>
+            <div>{data.token.collection.name}</div>
+          </div>
+          <div className={classes.price}>
+            {data.market.floorAsk.price.amount.native} {currency}
+          </div>
+        </div>
       </div>
 
       <br />
-      <button onClick={() => dispatch({ type: "set-view-connect" })}>
-        Buy token
-      </button>
-    </>
+      <div className={classes.actions}>
+        <Button
+          label="Buy now"
+          onClick={() => dispatch({ type: "set-view-connect" })}
+        />
+        <Button variant="squid" onClick={() => {}} />
+      </div>
+    </Modal>
   );
 }

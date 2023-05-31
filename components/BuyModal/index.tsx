@@ -12,9 +12,8 @@ export default function BuyModal() {
     state: { view, show, item },
     dispatch,
   } = useContext(BuyContext);
-  const { isConnected } = useAccount();
 
-  const renderModal = useCallback(() => {
+  const renderView = useCallback(() => {
     switch (view) {
       case "connect":
         return <ConnectView />;
@@ -33,7 +32,7 @@ export default function BuyModal() {
         className={classes.shim}
         onClick={() => dispatch({ type: "reset" })}
       />
-      <div className={classes.modal}>{renderModal()}</div>
+      {renderView()}
     </>
   );
 }
