@@ -23,3 +23,8 @@
 .button--squid {
   background-color: #ab94eb;
 }
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
