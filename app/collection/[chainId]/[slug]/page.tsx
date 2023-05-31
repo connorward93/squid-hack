@@ -3,8 +3,15 @@ import { fetchTokens } from "@/lib/fetchTokens";
 import { notFound } from "next/navigation";
 import classes from "./page.module.css";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const tokens = await fetchTokens({ collection: params.slug });
+export default async function Page({
+  params,
+}: {
+  params: { chainId: string; slug: string };
+}) {
+  const tokens = await fetchTokens({
+    chain: params.chainId,
+    collection: params.slug,
+  });
   if (!tokens) notFound();
 
   return (

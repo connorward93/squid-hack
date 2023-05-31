@@ -47,7 +47,7 @@ export default function Table({
 }: {
   defaultCollections: any;
 }) {
-  const [chain, setChain] = useState("homestead");
+  const [chain, setChain] = useState("ethereum");
   const [collections, setCollections] = useState(defaultCollections);
   const [filter, setFilter] = useState<"1Day" | "7Day" | "30Day" | "allTime">(
     "1Day"
@@ -132,10 +132,10 @@ export default function Table({
             const currency = collection?.floorAsk?.price?.currency?.symbol;
             return (
               <tr key={collection.id}>
-                <TableCell href={`/collection/${collection.id}`}>
+                <TableCell href={`/collection/${chain}/${collection.id}`}>
                   {i + 1}
                 </TableCell>
-                <TableCell href={`/collection/${collection.id}`}>
+                <TableCell href={`/collection/${chain}/${collection.id}`}>
                   <div className={classes.collection}>
                     <div className={classes.image}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -144,10 +144,10 @@ export default function Table({
                     <span>{collection.name}</span>
                   </div>
                 </TableCell>
-                <TableCell href={`/collection/${collection.id}`}>
+                <TableCell href={`/collection/${chain}/${collection.id}`}>
                   {collection.floorAsk?.price?.amount?.native} {currency}
                 </TableCell>
-                <TableCell href={`/collection/${collection.id}`}>
+                <TableCell href={`/collection/${chain}/${collection.id}`}>
                   {renderVolume(collection)} {currency}
                 </TableCell>
               </tr>
