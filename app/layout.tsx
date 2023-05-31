@@ -25,7 +25,7 @@ export default function RootLayout({
           <body className={inter.className}>
             <Header />
             <BuyModal />
-            {children}
+            <main>{children}</main>
             <Footer />
           </body>
         </html>

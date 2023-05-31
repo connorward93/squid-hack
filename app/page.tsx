@@ -1,11 +1,9 @@
-import styles from "./page.module.css";
 import PopularCollections from "@/components/PopularCollections";
+import classes from "./page.module.css";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      {/* @ts-expect-error Server Component */}
-      <PopularCollections />
-    </main>
+    // @ts-expect-error Server Component
+    <PopularCollections />
   );
 }

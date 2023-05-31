@@ -30,6 +30,8 @@ body {
 
 main {
   flex-grow: 1;
+  max-width: 960px;
+  margin: auto;
 }
 
 a {
