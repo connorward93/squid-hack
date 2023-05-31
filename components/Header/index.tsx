@@ -8,7 +8,7 @@ export default function Header() {
       <div>
         <Link href="/">QUID</Link>
       </div>
-      <div>Search</div>
+      {/* <div>Search</div> */}
       <Profile />
     </header>
   );
