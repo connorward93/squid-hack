@@ -24,6 +24,12 @@
   animation: rotation 1s linear infinite;
 }
 
+.spinner--small {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
