@@ -6,6 +6,7 @@ type TokenSchema = paths["/tokens/v5"]["get"]["responses"]["200"]["schema"];
 export const fetchTokens = async (options: {
   chain: string;
   collection: string | null;
+  continuation?: string | null;
 }) => {
   let chain = options?.chain
     ? chains.find((chain) => chain.routePrefix == options.chain) || chains[0]
@@ -20,7 +21,5 @@ export const fetchTokens = async (options: {
     }
   );
   const json = (await response.json()) as TokenSchema;
-
-  const { tokens } = json;
-  return tokens;
+  return json;
 };
