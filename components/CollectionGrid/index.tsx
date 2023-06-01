@@ -52,7 +52,7 @@ export default function CollectionGrid({ items: defaultItems }: any) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={token?.image || "/default.png"} alt={token?.name} />
             <div className={classes.caption}>
-              <div>{token?.name}</div>
+              <div>#{token.tokenId}</div>
               <div>
                 {Math.round(market?.floorAsk?.price?.amount?.native * 100) /
                   100}{" "}
