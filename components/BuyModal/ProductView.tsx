@@ -29,6 +29,7 @@ export default function BuyView({ data }: any) {
       <br />
       <div className={classes.actions}>
         <Button
+          disabled
           label="Buy now"
           onClick={() => dispatch({ type: "set-view-connect" })}
         />
