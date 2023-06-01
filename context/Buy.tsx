@@ -9,7 +9,7 @@ type TState = {
 
 type TAction =
   | { type: "set-view-connect"; payload?: any }
-  | { type: "set-view-currency" }
+  | { type: "set-view-squid" }
   | { type: "reset" }
   | { type: "set-view-product"; payload?: any };
 
@@ -29,7 +29,7 @@ const reducer = (state: TState, action: TAction): TState => {
   switch (action.type) {
     case "set-view-connect":
       return { ...state, show: true, item: action.payload, view: "connect" };
-    case "set-view-currency":
+    case "set-view-squid":
       return { ...state, view: "currency" };
     case "reset":
       return { show: false };

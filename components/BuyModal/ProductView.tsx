@@ -36,7 +36,7 @@ export default function BuyView({ data }: any) {
         <Button
           variant="squid"
           onClick={() => {
-            dispatch({ type: "set-view-currency" });
+            dispatch({ type: "set-view-squid" });
           }}
         />
       </div>
