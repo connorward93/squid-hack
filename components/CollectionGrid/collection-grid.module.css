@@ -4,6 +4,12 @@
   gap: 1rem;
 }
 
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 .item {
   display: flex;
   flex-direction: column;

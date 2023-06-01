@@ -20,6 +20,15 @@
   background-color: var(--black);
 }
 
+@media (max-width: 768px) {
+  .modal {
+    width: calc(100% - 1rem);
+    margin: 0 0.5rem;
+    left: 0;
+    transform: translate(0, -50%);
+  }
+}
+
 .header,
 .content {
   padding: 1rem;

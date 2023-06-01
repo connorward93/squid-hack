@@ -5,6 +5,7 @@
   --grey-10: #999999;
   --grey-30: #808080;
   --grey-20: #333333;
+  --mobile: 768px;
 }
 
 * {
@@ -44,6 +45,12 @@ main {
   margin: auto;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 1000px) {
+  main {
+    width: 100%;
+  }
 }
 
 a {
