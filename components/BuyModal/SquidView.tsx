@@ -289,7 +289,7 @@ export default function CurrencyView() {
               />
             </div>
             <div className={classes.price}>
-              <div>Min. required: -</div>
+              <div>Required: -</div>
               <div> Balance: {balance?.formatted || "-"}</div>
             </div>
             <br />
