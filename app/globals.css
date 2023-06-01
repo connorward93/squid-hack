@@ -32,6 +32,8 @@ main {
   flex-grow: 1;
   width: 960px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
