@@ -1,5 +1,11 @@
 "use client";
-import { ChangeEvent, ReactNode, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  ReactNode,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import Link from "next/link";
 import InputRadio from "../InputRadio";
 import chains from "@/constants/chains";
@@ -49,8 +55,14 @@ export default function Table({
   defaultCollections: any;
 }) {
   const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [chain, setChain] = useState("ethereum");
-  const [collections, setCollections] = useState(defaultCollections);
+  const [continuation, setContinuation] = useState(
+    defaultCollections.continuation
+  );
+  const [collections, setCollections] = useState(
+    defaultCollections.collections
+  );
   const [filter, setFilter] = useState<"1Day" | "7Day" | "30Day" | "allTime">(
     "1Day"
   );
@@ -92,10 +104,25 @@ export default function Table({
       );
       const { collections } = await request.json();
       setLoading(false);
-      setCollections(collections);
+      setCollections(collections.collections);
+      setContinuation(collections.continuation);
     };
     fetchCollections();
   }, [filter, chain]);
+
+  const handleViewMore = useCallback(async () => {
+    setLoadingMore(true);
+    const request = await fetch(
+      `api/collections?limit=20&filter=${filter}&chain=${chain}&continuation=${continuation}`,
+      {
+        method: "GET",
+      }
+    );
+    const { collections: newCollections } = await request.json();
+    setLoadingMore(false);
+    setCollections([...collections, ...newCollections.collections]);
+    setContinuation(newCollections.continuation);
+  }, [chain, collections, continuation, filter]);
 
   return (
     <>
@@ -169,7 +196,12 @@ export default function Table({
           </tbody>
         )}
       </table>
-      {loading ? null : <Button label="View More" onClick={() => {}} />}
+      {loading ? null : (
+        <Button
+          label={loadingMore ? <Spinner size="small" /> : "View more"}
+          onClick={handleViewMore}
+        />
+      )}
     </>
   );
 }

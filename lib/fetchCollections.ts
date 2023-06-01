@@ -7,6 +7,7 @@ type CollectionSchema =
 export const fetchCollections = async (options?: {
   chain?: any | null;
   filter?: string | null;
+  continuation?: string | null;
 }) => {
   let chain = options?.chain
     ? chains.find((chain) => chain.routePrefix == options.chain) || chains[0]
@@ -15,15 +16,16 @@ export const fetchCollections = async (options?: {
   const response = await fetch(
     `${chain.reservoirBaseUrl}/collections/v5?sortBy=${
       options?.filter || "1Day"
-    }Volume&limit=10`,
+    }Volume&limit=20${
+      options?.continuation ? `&continuation=${options?.continuation}` : ""
+    }`,
     {
       headers: {
         "x-api-key": chain.apiKey || "",
       },
     }
   );
-  const json = (await response.json()) as CollectionSchema;
+  const json = (await response.json()) as { collections: CollectionSchema };
 
-  const { collections } = json;
-  return collections;
+  return json;
 };
