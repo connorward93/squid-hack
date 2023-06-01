@@ -139,7 +139,10 @@ export default function Table({
                   <div className={classes.collection}>
                     <div className={classes.image}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={collection.image} alt={collection.name} />
+                      <img
+                        src={collection.image || "/default.png"}
+                        alt={collection.name}
+                      />
                     </div>
                     <span>{collection.name}</span>
                   </div>

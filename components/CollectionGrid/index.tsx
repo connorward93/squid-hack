@@ -28,7 +28,7 @@ export default function CollectionGrid({ items }: any) {
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={token?.image} alt={token?.name} />
+          <img src={token?.image || "/default.png"} alt={token?.name} />
           <div className={classes.caption}>
             <div>{token?.name}</div>
             <div>
