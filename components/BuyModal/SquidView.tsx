@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import BuyContext from "@/context/Buy";
-import { useAccount, useBalance } from "wagmi";
+import { useAccount, useBalance, useNetwork, useSwitchNetwork } from "wagmi";
 import { fetchBalance } from "@wagmi/core";
 import { ethers } from "ethers";
 import Modal from "./Modal";
@@ -23,15 +23,40 @@ export default function CurrencyView() {
     state: { squid },
   } = useContext(SquidContext);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<any>();
   const [selectedChain, setSelectedChain] = useState<any>({
     chain: null,
     tokens: null,
   });
   const [selectedToken, setSelectedToken] = useState<any>(null);
   const [balance, setBalance] = useState<any>(0);
+  const { chain: connectedChain } = useNetwork();
+  const {
+    chains: availableChains,
+    error: networkError,
+    isLoading,
+    pendingChainId,
+    switchNetwork,
+  } = useSwitchNetwork({
+    onError(error) {
+      setError("Unrecognised chain. Try adding chain to wallet.");
+    },
+  });
   const { address, isConnected } = useAccount();
 
   const chain = chains.find((chain) => chain.routePrefix === params.chainId);
+
+  const handleNetworkSwitch = () => {
+    switchNetwork?.(selectedChain.chain);
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setError(null);
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [error, networkError]);
 
   useEffect(() => {
     if (!address || !squid) return;
@@ -73,8 +98,6 @@ export default function CurrencyView() {
       }
     })();
   }, [address, selectedChain, selectedToken]);
-
-  console.log({ token });
 
   const buyToken = async () => {
     const owner = token.token.owner;
@@ -118,8 +141,6 @@ export default function CurrencyView() {
         1,
       ]
     );
-
-    console.log(token);
 
     const transferNftEncodeData = erc1155Interface.encodeFunctionData(
       "safeTransferFrom",
@@ -268,13 +289,22 @@ export default function CurrencyView() {
               />
             </div>
             <div className={classes.price}>
-              <div>Min. required: -</div>
+              <div>Required: -</div>
               <div> Balance: {balance?.formatted || "-"}</div>
             </div>
             <br />
             <div>
-              <Button variant="squid" label="Buy token" onClick={buyToken} />
+              {connectedChain!.id !== selectedChain.chain ? (
+                <Button
+                  variant="squid"
+                  label="Switch Network"
+                  onClick={handleNetworkSwitch}
+                />
+              ) : (
+                <Button variant="squid" label="Buy token" onClick={buyToken} />
+              )}
             </div>
+            {error ? <div className={classes.error}>Error: {error}</div> : null}
           </div>
         </>
       ) : null}

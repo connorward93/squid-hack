@@ -3,6 +3,7 @@
   flex-direction: column;
   padding: 1.5rem 0.5rem;
   gap: 1.5rem;
+  flex-grow: 1;
 }
 
 .header {
@@ -14,6 +15,8 @@
 .table {
   width: 100%;
   text-align: left;
+  flex-grow: 1;
+  position: relative;
 }
 
 .table thead th {
@@ -51,4 +54,41 @@
 .actions {
   display: flex;
   gap: 1rem;
+}
+
+.table .spinner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .header,
+  .actions {
+    gap: 1rem;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .table thead th,
+  .table td {
+    font-size: 13px;
+  }
+
+  .table thead th:last-child,
+  .table td:last-child {
+    display: none;
+  }
+
+  .table thead th:nth-child(3) {
+    width: 6rem;
+  }
+
+  .table thead th:nth-child(3),
+  .table td:nth-child(3) {
+    text-align: right;
+  }
 }

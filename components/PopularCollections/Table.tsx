@@ -1,8 +1,13 @@
 "use client";
-import { ChangeEvent, ReactNode, useEffect, useState } from "react";
-import InputRadio from "../InputRadio";
+import {
+  ChangeEvent,
+  ReactNode,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import Link from "next/link";
-import Image from "next/image";
+import InputRadio from "../InputRadio";
 import chains from "@/constants/chains";
 import classes from "./popular-collections.module.css";
 import ETH from "../Icons/ETH";
@@ -10,6 +15,8 @@ import Polygon from "../Icons/Polygon";
 import Arbitrum from "../Icons/Arbitrum";
 import Optimism from "../Icons/Optimism";
 import Goerli from "../Icons/Goerli";
+import Button from "../Button";
+import { Spinner } from "../Loading";
 
 const renderIcon = (network: string) => {
   switch (network) {
@@ -47,8 +54,15 @@ export default function Table({
 }: {
   defaultCollections: any;
 }) {
+  const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [chain, setChain] = useState("ethereum");
-  const [collections, setCollections] = useState(defaultCollections);
+  const [continuation, setContinuation] = useState(
+    defaultCollections.continuation
+  );
+  const [collections, setCollections] = useState(
+    defaultCollections.collections
+  );
   const [filter, setFilter] = useState<"1Day" | "7Day" | "30Day" | "allTime">(
     "1Day"
   );
@@ -56,11 +70,13 @@ export default function Table({
   const handleFilter = (e: ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
     setFilter(e.target.value);
+    setLoading(true);
   };
 
   const handleChain = (e: ChangeEvent<HTMLInputElement>) => {
     // @ts-ignore
     setChain(e.target.value);
+    setLoading(true);
   };
 
   const renderVolume = (collection: any) => {
@@ -87,10 +103,26 @@ export default function Table({
         }
       );
       const { collections } = await request.json();
-      setCollections(collections);
+      setLoading(false);
+      setCollections(collections.collections);
+      setContinuation(collections.continuation);
     };
     fetchCollections();
   }, [filter, chain]);
+
+  const handleViewMore = useCallback(async () => {
+    setLoadingMore(true);
+    const request = await fetch(
+      `api/collections?limit=20&filter=${filter}&chain=${chain}&continuation=${continuation}`,
+      {
+        method: "GET",
+      }
+    );
+    const { collections: newCollections } = await request.json();
+    setLoadingMore(false);
+    setCollections([...collections, ...newCollections.collections]);
+    setContinuation(newCollections.continuation);
+  }, [chain, collections, continuation, filter]);
 
   return (
     <>
@@ -126,35 +158,50 @@ export default function Table({
             <th>Volume</th>
           </tr>
         </thead>
-        <tbody>
-          {/* @ts-ignore */}
-          {collections?.map((collection, i) => {
-            const currency = collection?.floorAsk?.price?.currency?.symbol;
-            return (
-              <tr key={collection.id}>
-                <TableCell href={`/collection/${chain}/${collection.id}`}>
-                  {i + 1}
-                </TableCell>
-                <TableCell href={`/collection/${chain}/${collection.id}`}>
-                  <div className={classes.collection}>
-                    <div className={classes.image}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={collection.image} alt={collection.name} />
+        {loading ? (
+          <div className={classes.spinner}>
+            <Spinner />
+          </div>
+        ) : (
+          <tbody>
+            {/* @ts-ignore */}
+            {collections?.map((collection, i) => {
+              const currency = collection?.floorAsk?.price?.currency?.symbol;
+              return (
+                <tr key={collection.id}>
+                  <TableCell href={`/collection/${chain}/${collection.id}`}>
+                    {i + 1}
+                  </TableCell>
+                  <TableCell href={`/collection/${chain}/${collection.id}`}>
+                    <div className={classes.collection}>
+                      <div className={classes.image}>
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={collection.image || "/default.png"}
+                          alt={collection.name}
+                        />
+                      </div>
+                      <span>{collection.name}</span>
                     </div>
-                    <span>{collection.name}</span>
-                  </div>
-                </TableCell>
-                <TableCell href={`/collection/${chain}/${collection.id}`}>
-                  {collection.floorAsk?.price?.amount?.native} {currency}
-                </TableCell>
-                <TableCell href={`/collection/${chain}/${collection.id}`}>
-                  {renderVolume(collection)} {currency}
-                </TableCell>
-              </tr>
-            );
-          })}
-        </tbody>
+                  </TableCell>
+                  <TableCell href={`/collection/${chain}/${collection.id}`}>
+                    {collection.floorAsk?.price?.amount?.native} {currency}
+                  </TableCell>
+                  <TableCell href={`/collection/${chain}/${collection.id}`}>
+                    {renderVolume(collection)} {currency}
+                  </TableCell>
+                </tr>
+              );
+            })}
+          </tbody>
+        )}
       </table>
+      {loading ? null : (
+        <Button
+          label={loadingMore ? <Spinner size="small" /> : "View more"}
+          onClick={handleViewMore}
+        />
+      )}
     </>
   );
 }

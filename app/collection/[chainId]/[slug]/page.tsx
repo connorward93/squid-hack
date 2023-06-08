@@ -12,7 +12,7 @@ export default async function Page({
     chain: params.chainId,
     collection: params.slug,
   });
-  if (!tokens) notFound();
+  if (!tokens.tokens) notFound();
 
   return (
     <div className={classes.container}>

@@ -5,6 +5,7 @@
   --grey-10: #999999;
   --grey-30: #808080;
   --grey-20: #333333;
+  --mobile: 768px;
 }
 
 * {
@@ -16,6 +17,16 @@
 html,
 body {
   max-width: 100vw;
+  -ms-overflow-style: none;
+}
+
+* {
+  scrollbar-width: none;
+  overscroll-behavior: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 body {
@@ -32,6 +43,14 @@ main {
   flex-grow: 1;
   width: 960px;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 1000px) {
+  main {
+    width: 100%;
+  }
 }
 
 a {

@@ -3,7 +3,7 @@ import { useCallback, useContext } from "react";
 import BuyContext from "@/context/Buy";
 import { useAccount } from "wagmi";
 import ConnectView from "./ConnectView";
-import CurrencyView from "./CurrencyView";
+import CurrencyView from "./SquidView";
 import BuyView from "./ProductView";
 import classes from "./buy-modal.module.css";
 
